@@ -53,6 +53,9 @@
     .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:52px !important;}
     .tst-rest{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:40px !important;}
     .tst-lead blockquote{font-size:27px !important;}
+    /* quotes differ in line count, so drop both captions to the row baseline */
+    .tst-rest figure{display:flex;flex-direction:column;height:100%;}
+    .tst-rest figcaption{margin-top:auto !important;padding-top:18px;}
   }
 
   /* ---------- Collapse nav to the drawer ---------- */
