@@ -58,6 +58,11 @@
     .grid-5 > *{flex:0 0 38% !important;scroll-snap-align:start;}
     .grid-5 .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
 
+    .svc-band{padding-top:72px !important;padding-bottom:72px !important;}
+    .svc-grid{gap:44px !important;}
+    .svc-title{font-size:32px !important;}
+    .svc-name{font-size:22px !important;}
+
     /* testimonials: intro stacks above the quote */
     .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:44px !important;}
     .tst-stack blockquote{font-size:27px !important;}
@@ -70,6 +75,8 @@
     /* Search / Log in / Wishlist already live in the drawer; keeping them in
        the bar too overruns the header. Cart stays — it carries a count. */
     .hdr-secondary{display:none !important;}
+    .svc-grid{grid-template-columns:minmax(0,1fr) !important;gap:36px !important;}
+    .svc-media{aspect-ratio:16/9 !important;}
     .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
     .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
     .opt-row a, .opt-row button{min-height:44px;display:inline-flex !important;
@@ -98,6 +105,13 @@
     .feature-split .tile-fixed{aspect-ratio:4/5 !important;}
     .feature-info{padding:36px 20px !important;}
     .pdp-info{position:static !important;padding:32px 20px !important;}
+
+    .svc-band{padding-top:56px !important;padding-bottom:60px !important;}
+    .svc-title{font-size:28px !important;}
+    .svc-name{font-size:21px !important;}
+    .svc-media{aspect-ratio:4/3 !important;}
+    .svc-row{flex-direction:column;align-items:flex-start !important;gap:14px !important;}
+    .assure-grid{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
 
     .tst-grid{gap:36px !important;}
     .tst-stack blockquote{font-size:22px !important;}
@@ -297,44 +311,63 @@
     </div>
   </section>
 
-  <section style="padding:80px 60px 40px;">
-    <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:32px;">Stripes &amp; Checks Services</div>
-    <div class="grid-3 ar-auto" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:40px;aspect-ratio:4.8/1;">
-      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-1" shape="rect" src="./ph/svc-1.jpg"></image-slot></div>
-      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-2" shape="rect" src="./ph/svc-2.jpg"></image-slot></div>
-      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-3" shape="rect" src="./ph/svc-3.jpg"></image-slot></div>
-    </div>
-    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;text-align:center;margin-top:24px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Complimentary Gift Wrapping</div>
-        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Every order is wrapped with care, with a hand-written note on request.</p>
-        <a href="Shop.dc.html" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
+  <section class="svc-band" style="background:#0a0a0a;color:#fff;padding:96px 60px;">
+    <div class="svc-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:72px;align-items:start;">
+
+      <div class="svc-media" style="position:relative;aspect-ratio:4/5;">
+        <image-slot id="svc-detail" shape="rect" src="./ph/svc-3.jpg"></image-slot>
       </div>
+
       <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Book a Fitting Appointment</div>
-        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Get a personal fitting and styling session at the store nearest you.</p>
-        <a href="#" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Book an Appointment →</a>
+        <div class="svc-title" style="font-family:'Cormorant Garamond',serif;font-size:38px;line-height:1.15;">Services</div>
+        <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,0.62);max-width:34em;margin:16px 0 0;">Everything that happens after you choose the cloth &mdash; the fitting, the initials, the wrapping &mdash; happens in store, by hand.</p>
+
+        <div style="margin-top:44px;border-bottom:1px solid rgba(255,255,255,0.16);">
+
+          <div class="svc-row" style="border-top:1px solid rgba(255,255,255,0.16);padding:26px 0;display:flex;align-items:baseline;justify-content:space-between;gap:32px;">
+            <div>
+              <div class="svc-name" style="font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.2;">Book a fitting</div>
+              <p style="font-size:13px;line-height:1.65;color:rgba(255,255,255,0.58);max-width:30em;margin:7px 0 0;">A personal fitting and styling session at the store nearest you.</p>
+            </div>
+            <a href="#" class="cta svc-link" style="flex:none;font-size:12px;letter-spacing:0.04em;border-bottom:1px solid rgba(255,255,255,0.5);" style-hover="border-color:#fff;">Book an appointment</a>
+          </div>
+
+          <div class="svc-row" style="border-top:1px solid rgba(255,255,255,0.16);padding:26px 0;display:flex;align-items:baseline;justify-content:space-between;gap:32px;">
+            <div>
+              <div class="svc-name" style="font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.2;">Monogramming</div>
+              <p style="font-size:13px;line-height:1.65;color:rgba(255,255,255,0.58);max-width:30em;margin:7px 0 0;">Your initials stitched into the cuff or the collar.</p>
+            </div>
+            <a href="Shop.dc.html" class="cta svc-link" style="flex:none;font-size:12px;letter-spacing:0.04em;border-bottom:1px solid rgba(255,255,255,0.5);" style-hover="border-color:#fff;">Shop shirts</a>
+          </div>
+
+          <div class="svc-row" style="border-top:1px solid rgba(255,255,255,0.16);padding:26px 0;display:flex;align-items:baseline;justify-content:space-between;gap:32px;">
+            <div>
+              <div class="svc-name" style="font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.2;">Gift wrapping</div>
+              <p style="font-size:13px;line-height:1.65;color:rgba(255,255,255,0.58);max-width:30em;margin:7px 0 0;">Wrapped by hand, with a written note if you ask for one.</p>
+            </div>
+            <a href="Shop.dc.html" class="cta svc-link" style="flex:none;font-size:12px;letter-spacing:0.04em;border-bottom:1px solid rgba(255,255,255,0.5);" style-hover="border-color:#fff;">Shop now</a>
+          </div>
+
+        </div>
       </div>
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Personalize Your Shirt</div>
-        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Add monogrammed initials to cuffs or collar for a one-of-a-kind piece.</p>
-        <a href="Shop.dc.html" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
-      </div>
+
     </div>
   </section>
 
-  <section class="grid-3" style="background:oklch(95% 0.006 75);padding:50px 60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;text-align:center;">
-    <div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Free Shipping &amp; Returns</div>
-      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Complimentary island-wide shipping and returns on all orders.</p>
-    </div>
-    <div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Premium Fabric Sourcing</div>
-      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Cotton and linen sourced from mills we've worked with for decades.</p>
-    </div>
-    <div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Customer Love</div>
-      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Rated 4.8/5 by over 3,000 customers across our stores.</p>
+  <section style="padding:56px 60px 76px;">
+    <div class="assure-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px;">
+      <div style="border-top:1px solid oklch(86% 0.004 75);padding-top:20px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Free shipping and returns</div>
+        <p style="font-size:13px;line-height:1.7;color:oklch(42% 0.006 75);margin:7px 0 0;">Island-wide on every order, with fourteen days to change your mind.</p>
+      </div>
+      <div style="border-top:1px solid oklch(86% 0.004 75);padding-top:20px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Fabric we source ourselves</div>
+        <p style="font-size:13px;line-height:1.7;color:oklch(42% 0.006 75);margin:7px 0 0;">Cotton and linen from mills we have worked with for decades.</p>
+      </div>
+      <div style="border-top:1px solid oklch(86% 0.004 75);padding-top:20px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Rated 4.8 out of 5</div>
+        <p style="font-size:13px;line-height:1.7;color:oklch(42% 0.006 75);margin:7px 0 0;">By more than three thousand customers across our stores.</p>
+      </div>
     </div>
   </section>
 
