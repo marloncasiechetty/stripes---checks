@@ -49,6 +49,10 @@
     .hdr-secondary{display:none !important;}
     .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
     .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
+    .opt-row a, .opt-row button{min-height:44px;display:inline-flex !important;
+                                align-items:center;justify-content:center;}
+    .foot-links{gap:0 !important;}
+    .foot-links a{min-height:40px;display:flex;align-items:center;}
 
     /* six category links will not fit on one line — swipe them instead of wrapping */
     .cat-nav{overflow-x:auto;flex-wrap:nowrap !important;width:100%;
@@ -222,13 +226,13 @@
       <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;letter-spacing:0.12em;color:#fff;">STRIPES<br>&amp; CHECKS</div>
       <div>
         <div style="color:#fff;font-size:13px;margin-bottom:14px;">Shop</div>
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+        <div class="foot-links" style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
           <a href="#">Shirts</a><a href="#">Polos</a><a href="#">T-Shirts</a><a href="#">Denims</a><a href="#">Accessories</a>
         </div>
       </div>
       <div>
         <div style="color:#fff;font-size:13px;margin-bottom:14px;">Customer Care</div>
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+        <div class="foot-links" style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
           <a href="#">Contact</a><a href="#">FAQs</a><a href="#">About</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a>
         </div>
       </div>

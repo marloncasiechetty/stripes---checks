@@ -58,6 +58,10 @@
     .hdr-secondary{display:none !important;}
     .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
     .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
+    .opt-row a, .opt-row button{min-height:44px;display:inline-flex !important;
+                                align-items:center;justify-content:center;}
+    .foot-links{gap:0 !important;}
+    .foot-links a{min-height:40px;display:flex;align-items:center;}
   }
 
   /* ---------- Phone: up to 640px ---------- */
@@ -224,13 +228,13 @@
       <div style="font-size:16px;">LKR 7,600.00</div>
       <p style="font-size:13px;line-height:1.7;color:oklch(35% 0.004 75);max-width:380px;margin:6px 0 0;">Slim-fit shirt in breathable two-fold cotton with a subtle self-texture. Cut for a tailored silhouette that layers cleanly under a blazer.</p>
       <div style="margin-top:10px;font-size:13px;">Color: {{featColorName}}</div>
-      <div style="display:flex;gap:8px;">
+      <div class="opt-row" style="display:flex;gap:8px;">
         <sc-for list="{{featColors}}" as="c" hint-placeholder-count="2">
           <button onclick="{{c.select}}" aria-label="{{c.name}}" style="width:28px;height:28px;background:{{c.swatch}};border:2px solid {{c.borderColor}};cursor:pointer;padding:0;"></button>
         </sc-for>
       </div>
       <div style="margin-top:10px;font-size:13px;">Size: {{featSize}}</div>
-      <div style="display:flex;gap:14px;font-size:13px;">
+      <div class="opt-row" style="display:flex;gap:14px;font-size:13px;">
         <sc-for list="{{featSizes}}" as="s" hint-placeholder-count="5">
           <a href="#" onclick="{{s.select}}" style="text-decoration:{{s.deco}};">{{s.label}}</a>
         </sc-for>
@@ -354,13 +358,13 @@
     <div style="font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;">STRIPES<br>&amp; CHECKS</div>
     <div>
       <div style="font-size:14px;margin-bottom:14px;">Shop</div>
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
+      <div class="foot-links" style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
         <a href="Shop.dc.html">Shirts</a><a href="Shop.dc.html">Polo T-Shirts</a><a href="Shop.dc.html">Denims</a><a href="Shop.dc.html">Chinos</a><a href="Shop.dc.html">Accessories</a>
       </div>
     </div>
     <div>
       <div style="font-size:14px;margin-bottom:14px;">Customer Care</div>
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
+      <div class="foot-links" style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
         <a href="#">Contact</a><a href="#">FAQs</a><a href="#">About</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a>
       </div>
     </div>
