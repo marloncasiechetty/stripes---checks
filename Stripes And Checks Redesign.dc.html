@@ -49,13 +49,9 @@
     .feature-split .tile-fixed{height:auto !important;aspect-ratio:4/5 !important;}
     .feature-info{padding:44px 40px !important;}
 
-    /* testimonials: lead over a two-up row, rather than a narrow side rail */
-    .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:52px !important;}
-    .tst-rest{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:40px !important;}
-    .tst-lead blockquote{font-size:27px !important;}
-    /* quotes differ in line count, so drop both captions to the row baseline */
-    .tst-rest figure{display:flex;flex-direction:column;height:100%;}
-    .tst-rest figcaption{margin-top:auto !important;padding-top:18px;}
+    /* testimonials: intro stacks above the quote */
+    .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:44px !important;}
+    .tst-quote blockquote{font-size:27px !important;min-height:3.9em !important;}
   }
 
   /* ---------- Collapse nav to the drawer ---------- */
@@ -94,10 +90,8 @@
     .feature-info{padding:36px 20px !important;}
     .pdp-info{position:static !important;padding:32px 20px !important;}
 
-    .tst-grid{gap:40px !important;}
-    .tst-rest{grid-template-columns:minmax(0,1fr) !important;gap:34px !important;}
-    .tst-lead blockquote{font-size:23px !important;}
-    .tst-rest blockquote{font-size:17.5px !important;}
+    .tst-grid{gap:36px !important;}
+    .tst-quote blockquote{font-size:22px !important;min-height:5.9em !important;}
 
     /* five tiles never divide evenly into two columns — scroll them instead */
     .grid-5{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -340,25 +334,24 @@
   </section>
 
   <section style="padding:100px 60px;">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.2;margin:0 0 48px;">What customers say</div>
+    <div class="tst-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:80px;align-items:start;">
 
-    <div class="tst-grid" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:72px;align-items:start;">
-
-      <figure class="tst-lead" style="margin:0;">
-        <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1.42;max-width:19em;">The fit is exactly what I look for &mdash; tailored without feeling stiff. My go-to for shirts now.</blockquote>
-        <figcaption style="margin-top:26px;font-size:13px;line-height:1.7;">Dinesh P.<span style="display:block;color:oklch(48% 0.01 75);">Colombo</span></figcaption>
-      </figure>
-
-      <div class="tst-rest" style="display:grid;gap:44px;">
-        <figure style="margin:0;">
-          <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.55;max-width:26em;">Fabric quality is a step above what I&#8217;ve bought elsewhere. Alterations in-store made it fit perfectly.</blockquote>
-          <figcaption style="margin-top:16px;font-size:13px;line-height:1.7;">Amaya S.<span style="display:block;color:oklch(48% 0.01 75);">Kandy</span></figcaption>
-        </figure>
-        <figure style="margin:0;">
-          <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.55;max-width:26em;">Ordered three shirts and every one held up after months of regular wear. Worth the price.</blockquote>
-          <figcaption style="margin-top:16px;font-size:13px;line-height:1.7;">Ruwan F.<span style="display:block;color:oklch(48% 0.01 75);">Galle</span></figcaption>
-        </figure>
+      <div class="tst-intro">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:36px;line-height:1.15;">What customers say</div>
+        <p style="font-size:14px;line-height:1.75;color:oklch(42% 0.008 75);max-width:30em;margin:18px 0 0;">Fit, cloth, and how a shirt holds up after a year of wear &mdash; the three things people write to us about most.</p>
+        <a href="#" class="cta" style="display:inline-block;margin-top:30px;border:1px solid #0a0a0a;padding:14px 26px;font-size:12px;letter-spacing:0.05em;" style-hover="background:#0a0a0a;color:#fff;">Read all reviews</a>
       </div>
+
+      <figure class="tst-quote" style="margin:0;">
+        <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.45;min-height:4.35em;">&ldquo;{{review.quote}}&rdquo;</blockquote>
+        <div style="border-top:1px solid oklch(88% 0.004 75);margin-top:30px;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+          <figcaption style="font-size:13px;line-height:1.7;">{{review.name}}<span style="display:block;color:oklch(48% 0.01 75);">{{review.city}}</span></figcaption>
+          <div style="display:flex;gap:10px;flex:none;">
+            <button onclick="{{reviewPrev}}" aria-label="Previous review" style="width:46px;height:46px;border:1px solid oklch(84% 0.004 75);background:none;cursor:pointer;font-size:15px;line-height:1;padding:0;" style-hover="border-color:#0a0a0a;">&larr;</button>
+            <button onclick="{{reviewNext}}" aria-label="Next review" style="width:46px;height:46px;border:1px solid oklch(84% 0.004 75);background:none;cursor:pointer;font-size:15px;line-height:1;padding:0;" style-hover="border-color:#0a0a0a;">&rarr;</button>
+          </div>
+        </div>
+      </figure>
 
     </div>
   </section>
@@ -407,7 +400,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600},&quot;showMarquee&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;announcementText&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Free Alterations In-Store — Complimentary Tailoring On All Orders&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
-  state = { menuOpen: false, featColor: 0, featSize: 'M', cartCount: 0, addToCartLabel: 'Add to Cart' };
+  state = { menuOpen: false, featColor: 0, featSize: 'M', cartCount: 0, addToCartLabel: 'Add to Cart', reviewIndex: 0 };
   componentDidMount() {
     this.setState({ cartCount: parseInt(localStorage.getItem('sc_cart_count') || '0', 10) });
   }
@@ -443,6 +436,12 @@ class Component extends DCLogic {
       { img: './ph/front.jpg', badge: 'New', name: 'Maroon Satin Shirt', price: 'LKR 5,500.00' },
       { img: './ph/front4.jpg', badge: 'New', name: 'Olive Textured Shirt', price: 'LKR 5,800.00' },
     ];
+    const reviews = [
+      { quote: 'The fit is exactly what I look for — tailored without feeling stiff. My go-to for shirts now.', name: 'Dinesh P.', city: 'Colombo' },
+      { quote: 'Fabric quality is a step above what I’ve bought elsewhere. Alterations in-store made it fit perfectly.', name: 'Amaya S.', city: 'Kandy' },
+      { quote: 'Ordered three shirts and every one held up after months of regular wear. Worth the price.', name: 'Ruwan F.', city: 'Galle' },
+    ];
+
     const insta = [
       { img: './ph/insta1.jpg' },
       { img: './ph/insta2.jpg' },
@@ -456,6 +455,9 @@ class Component extends DCLogic {
       featSizes, featSize: this.state.featSize,
       cartCount: this.state.cartCount, addToCartLabel: this.state.addToCartLabel,
       addToCart: () => this.addToCart(),
+      review: reviews[this.state.reviewIndex],
+      reviewPrev: () => this.setState({ reviewIndex: (this.state.reviewIndex + reviews.length - 1) % reviews.length }),
+      reviewNext: () => this.setState({ reviewIndex: (this.state.reviewIndex + 1) % reviews.length }),
       menuOpen: this.state.menuOpen,
       openMenu: () => this.setState({ menuOpen: true }),
       closeMenu: () => this.setState({ menuOpen: false }),
