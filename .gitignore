@@ -1,6 +1,6 @@
 # Claude Design canvas working files (not referenced by the site)
 crop*.png
-.image-slots.state.json
+# .image-slots.state.json holds live crop/image data — tracked on purpose
 .thumbnail
 
 # OS / editor cruft
