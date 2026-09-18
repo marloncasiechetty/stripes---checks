@@ -21,22 +21,77 @@
   .mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;align-items:center;gap:5px;flex-direction:column;}
   .tap{padding:12px 4px;display:inline-block;}
   .dark-input::placeholder{color:rgba(255,255,255,0.6);}
-  @media (max-width:860px){
+  .scroll-row{scrollbar-width:none;-ms-overflow-style:none;}
+  .scroll-row::-webkit-scrollbar{display:none;}
+
+  /* ---------- Tablet: up to 1024px ---------- */
+  @media (max-width:1024px){
+    header{padding-left:28px !important;padding-right:28px !important;}
+    section:not(.bleed), footer{padding-left:40px !important;padding-right:40px !important;}
+
+    /* product grid loosens from six across to three */
+    .grid-6{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+
+    /* four-up image strips halve; the container aspect must go with them,
+       or each cell keeps the full-width ratio across two rows */
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-4.ar-auto{aspect-ratio:auto !important;}
+    .grid-4.ar-auto .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
+
+    .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:36px !important;}
+
+    /* 6.4:1 hero is only 160px tall at this width — too short for its overlay */
+    .hero-split{aspect-ratio:3/1 !important;}
+
+    /* text column sets the height here; a fixed 16:9 would clip the form */
+    .feature-split{aspect-ratio:auto !important;}
+    .feature-split .tile-fixed{height:auto !important;aspect-ratio:4/5 !important;}
+    .feature-info{padding:44px 40px !important;}
+  }
+
+  /* ---------- Collapse nav to the drawer ---------- */
+  @media (max-width:900px){
     .desktop-nav{display:none !important;}
     .mobile-menu-btn{display:flex !important;}
+    /* Search / Log in / Wishlist already live in the drawer; keeping them in
+       the bar too overruns the header. Cart stays — it carries a count. */
+    .hdr-secondary{display:none !important;}
+    .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
+    .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
+  }
+
+  /* ---------- Phone: up to 640px ---------- */
+  @media (max-width:640px){
+    header{padding-left:16px !important;padding-right:16px !important;}
+    section:not(.bleed), footer{padding-left:20px !important;padding-right:20px !important;}
+
     .grid-6{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
-    .grid-5{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
-    .grid-3{grid-template-columns:minmax(0,1fr) !important;}
-    .grid-2split{grid-template-columns:minmax(0,1fr) !important;}
+    .grid-3, .grid-2split, .split-text{grid-template-columns:minmax(0,1fr) !important;}
+    .split-text{gap:14px !important;}
     .footer-grid{grid-template-columns:minmax(0,1fr) !important;gap:32px !important;}
+
     .ar-auto{aspect-ratio:auto !important;}
     .col-auto{height:auto !important;}
     .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
-    .feature-info{padding:40px 24px !important;}
-    .pdp-info{position:static !important;padding:32px 24px !important;}
-    header, section, footer{padding-left:20px !important;padding-right:20px !important;}
-    .hdr-icons{gap:12px !important;font-size:11px !important;}
+    .grid-4.ar-auto .tile-fixed{aspect-ratio:1/1 !important;}
+    .hero-split{aspect-ratio:auto !important;}
+    .feature-split .tile-fixed{aspect-ratio:4/5 !important;}
+    .feature-info{padding:36px 20px !important;}
+    .pdp-info{position:static !important;padding:32px 20px !important;}
+
+    /* five tiles never divide evenly into two columns — scroll them instead */
+    .grid-5{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
+            gap:2px !important;aspect-ratio:auto !important;}
+    .grid-5 > *{flex:0 0 62% !important;scroll-snap-align:start;}
+    .grid-5 .tile-fixed{aspect-ratio:1/1 !important;}
+
+    .hdr-icons{gap:12px !important;font-size:12px !important;}
+    .hdr-logo{height:34px !important;width:auto !important;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    [style*="animation:marquee"]{animation:none !important;}
   }
 </style>
 </helmet>
@@ -62,9 +117,9 @@
         <a href="Shop.dc.html" class="tap">Shirts</a><a href="Shop.dc.html" class="tap">Polos</a><a href="Shop.dc.html" class="tap">T-Shirts</a><a href="Shop.dc.html" class="tap">Denims</a><a href="Shop.dc.html" class="tap">Chinos</a>
       </span>
     </nav>
-    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" style="height:48px;width:auto;"></a>
+    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" class="hdr-logo" style="height:48px;width:auto;"></a>
     <div class="hdr-icons" style="display:flex;gap:20px;font-size:13px;align-items:center;">
-      <a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a><a href="#" class="tap">Cart ({{cartCount}})</a>
+      <span class="hdr-secondary" style="display:flex;gap:20px;"><a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a></span><a href="#" class="tap">Cart ({{cartCount}})</a>
     </div>
   </header>
 
@@ -82,13 +137,13 @@
   </div>
   </sc-if>
 
-  <section style="position:relative;">
-    <div class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:6.4/1;">
+  <section class="bleed" style="position:relative;">
+    <div class="grid-2split ar-auto hero-split" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:6.4/1;">
       <div class="tile-fixed" style="position:relative;height:100%;">
         <image-slot id="banner-left" shape="rect" src="./ph/front-1.jpg"></image-slot>
         <div style="position:absolute;bottom:24px;left:32px;">
           <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#fff;">On Sale</div>
-          <a href="Shop.dc.html" style="display:inline-block;margin-top:10px;background:#0a0a0a;color:#fff;padding:10px 22px;font-size:12px;letter-spacing:0.05em;">Shop Now</a>
+          <a href="Shop.dc.html" class="cta" style="display:inline-block;margin-top:10px;background:#0a0a0a;color:#fff;padding:10px 22px;font-size:12px;letter-spacing:0.05em;">Shop Now</a>
         </div>
       </div>
       <div class="tile-fixed" style="position:relative;height:100%;background:oklch(92% 0.01 75);">
@@ -104,10 +159,10 @@
     </div>
   </section>
 
-  <section style="padding:96px 60px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:end;">
+  <section class="split-text" style="padding:96px 60px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:end;">
     <div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:44px;">New Arrivals<sup style="font-size:16px;">(6)</sup></div>
-      <a href="Shop.dc.html" style="display:inline-block;margin-top:6px;font-size:13px;border-bottom:1px solid currentColor;">Shop All →</a>
+      <a href="Shop.dc.html" class="cta" style="display:inline-block;margin-top:6px;font-size:13px;border-bottom:1px solid currentColor;">Shop All →</a>
     </div>
     <p style="font-size:14px;line-height:1.7;color:oklch(30% 0.004 75);margin:0;">
       Deep tones and heavyweight cottons for the shift into cooler days. Charcoal linens and brushed flannels sit alongside sharp navy poplins, cut for a fit that moves between the desk and dinner without changing.
@@ -127,12 +182,12 @@
     </sc-for>
   </section>
 
-  <section class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);aspect-ratio:16/9;">
+  <section class="grid-2split ar-auto bleed" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);aspect-ratio:16/9;">
     <div class="tile-fixed" style="position:relative;height:100%;">
       <image-slot id="cat-shirts" shape="rect" src="./ph/0y2a0337.jpg"></image-slot>
       <div style="position:absolute;left:24px;bottom:24px;">
         <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;">Shirts</div>
-        <a href="Shop.dc.html" style="display:inline-block;margin-top:10px;background:#fff;color:#0a0a0a;padding:9px 20px;font-size:11px;letter-spacing:0.05em;">Shop Now</a>
+        <a href="Shop.dc.html" class="cta" style="display:inline-block;margin-top:10px;background:#fff;color:#0a0a0a;padding:9px 20px;font-size:11px;letter-spacing:0.05em;">Shop Now</a>
       </div>
     </div>
     <div class="col-auto" style="display:flex;flex-direction:column;height:100%;">
@@ -140,14 +195,14 @@
         <image-slot id="cat-polo" shape="rect" src="./ph/SC_1177.jpg"></image-slot>
         <div style="position:absolute;left:24px;bottom:24px;">
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;">Polo T-Shirts</div>
-          <a href="Shop.dc.html" style="display:inline-block;margin-top:8px;background:#0a0a0a;color:#fff;padding:8px 18px;font-size:11px;">Shop Now</a>
+          <a href="Shop.dc.html" class="cta" style="display:inline-block;margin-top:8px;background:#0a0a0a;color:#fff;padding:8px 18px;font-size:11px;">Shop Now</a>
         </div>
       </div>
       <div class="tile-fixed" style="position:relative;flex:1;min-height:0;">
         <image-slot id="cat-denim" shape="rect" src="./ph/SC_1249.jpg"></image-slot>
         <div style="position:absolute;left:24px;bottom:24px;">
           <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;">Premium Denims</div>
-          <a href="Shop.dc.html" style="display:inline-block;margin-top:8px;background:#fff;color:#0a0a0a;padding:8px 18px;font-size:11px;">Shop Now</a>
+          <a href="Shop.dc.html" class="cta" style="display:inline-block;margin-top:8px;background:#fff;color:#0a0a0a;padding:8px 18px;font-size:11px;">Shop Now</a>
         </div>
       </div>
     </div>
@@ -159,7 +214,7 @@
     </div>
   </div>
 
-  <section class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:8/5;">
+  <section class="grid-2split ar-auto feature-split bleed" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:8/5;">
     <div class="tile-fixed" style="position:relative;height:100%;">
       <image-slot id="pdp-shirt" shape="rect" src="./ph/IRE_2745.jpg"></image-slot>
     </div>
@@ -184,7 +239,7 @@
     </div>
   </section>
 
-  <section style="background:#0a0a0a;padding:56px 0 0;">
+  <section class="bleed" style="background:#0a0a0a;padding:56px 0 0;">
     <div style="text-align:center;color:#fff;font-size:11px;letter-spacing:0.06em;">Behind The Scenes</div>
     <div style="text-align:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:34px;margin-top:6px;">Style Diaries</div>
     <div class="grid-5 ar-auto" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin-top:36px;aspect-ratio:4/1;">
@@ -196,13 +251,13 @@
     </div>
   </section>
 
-  <section style="padding:96px 60px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:60px;">
+  <section class="split-text" style="padding:96px 60px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:60px;">
     <div style="font-size:13px;color:oklch(45% 0.01 75);">Tailored For The Season</div>
     <div>
       <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;line-height:1.4;">
         In every fold of cloth and turn of collar, there's a quiet discipline. This season, Stripes &amp; Checks looks at the men who dress with intention — not for occasion, but for the everyday.
       </div>
-      <a href="#" style="display:inline-block;margin-top:20px;font-size:13px;border-bottom:1px solid currentColor;">Read the Story →</a>
+      <a href="#" class="cta" style="display:inline-block;margin-top:20px;font-size:13px;border-bottom:1px solid currentColor;">Read the Story →</a>
     </div>
   </section>
 
@@ -233,17 +288,17 @@
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Complimentary Gift Wrapping</div>
         <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Every order is wrapped with care, with a hand-written note on request.</p>
-        <a href="Shop.dc.html" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
+        <a href="Shop.dc.html" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
       </div>
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Book a Fitting Appointment</div>
         <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Get a personal fitting and styling session at the store nearest you.</p>
-        <a href="#" style="font-size:12px;border-bottom:1px solid currentColor;">Book an Appointment →</a>
+        <a href="#" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Book an Appointment →</a>
       </div>
       <div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Personalize Your Shirt</div>
         <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Add monogrammed initials to cuffs or collar for a one-of-a-kind piece.</p>
-        <a href="Shop.dc.html" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
+        <a href="Shop.dc.html" class="cta" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
       </div>
     </div>
   </section>
@@ -284,12 +339,12 @@
     </div>
   </section>
 
-  <section class="grid-4 ar-auto" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));aspect-ratio:3/1;">
+  <section class="grid-4 ar-auto bleed" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));aspect-ratio:3/1;">
     <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="insta-1" shape="rect" src="./ph/insta-1.jpg"></image-slot></div>
     <div style="background:#0a0a0a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:180px;">
       <div style="font-size:12px;">Get Inspired</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:22px;">#STRIPESANDCHECKS</div>
-      <a href="#" style="font-size:12px;border-bottom:1px solid #fff;">Follow Us →</a>
+      <a href="#" class="cta" style="font-size:12px;border-bottom:1px solid #fff;">Follow Us →</a>
     </div>
     <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="insta-2" shape="rect" src="./ph/insta-2.jpg"></image-slot></div>
     <div style="position:relative;aspect-ratio:3/4;"><image-slot id="insta-3" shape="rect" src="./ph/insta-3.jpg"></image-slot></div>

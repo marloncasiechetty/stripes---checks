@@ -21,16 +21,68 @@
   .mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;align-items:center;gap:5px;flex-direction:column;}
   .tap{padding:12px 4px;display:inline-block;}
   .dark-input::placeholder{color:rgba(255,255,255,0.6);}
-  @media (max-width:860px){
+  .scroll-row{scrollbar-width:none;-ms-overflow-style:none;}
+  .scroll-row::-webkit-scrollbar{display:none;}
+
+  /* ---------- Tablet: up to 1024px ---------- */
+  @media (max-width:1024px){
+    header{padding-left:28px !important;padding-right:28px !important;}
+    section:not(.bleed), footer, .pad{padding-left:40px !important;padding-right:40px !important;}
+
+    /* catalogue keeps three across before dropping to two */
+    .grid-prod{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}
+
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-4.ar-auto{aspect-ratio:auto !important;}
+    .grid-4.ar-auto .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
+
+    .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:36px !important;}
+    .pull-quote > div{max-width:720px;margin-left:auto;margin-right:auto;}
+  }
+
+  /* ---------- Collapse nav to the drawer ---------- */
+  @media (max-width:900px){
     .desktop-nav{display:none !important;}
     .mobile-menu-btn{display:flex !important;}
+    /* Search / Log in / Wishlist already live in the drawer; keeping them in
+       the bar too overruns the header. Cart stays — it carries a count. */
+    .hdr-secondary{display:none !important;}
+    .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
+    .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
+
+    /* six category links will not fit on one line — swipe them instead of wrapping */
+    .cat-nav{overflow-x:auto;flex-wrap:nowrap !important;width:100%;
+             scrollbar-width:none;-ms-overflow-style:none;}
+    .cat-nav::-webkit-scrollbar{display:none;}
+    .cat-nav a{white-space:nowrap;padding:10px 0;}
+  }
+
+  /* ---------- Phone: up to 640px ---------- */
+  @media (max-width:640px){
+    header{padding-left:16px !important;padding-right:16px !important;}
+    section:not(.bleed), footer, .pad{padding-left:20px !important;padding-right:20px !important;}
+
+    .grid-prod{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .grid-3{grid-template-columns:minmax(0,1fr) !important;}
     .footer-grid{grid-template-columns:minmax(0,1fr) !important;gap:32px !important;}
+
     .ar-auto{aspect-ratio:auto !important;}
+    .col-auto{height:auto !important;}
     .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
-    header, section, footer{padding-left:20px !important;padding-right:20px !important;}
-    .hdr-icons{gap:12px !important;font-size:11px !important;}
+    .grid-4.ar-auto .tile-fixed{aspect-ratio:1/1 !important;}
+    .pull-quote{padding-top:56px !important;padding-bottom:64px !important;}
+
+    /* the results line is too long to sit beside the other two */
+    .filter-bar{gap:4px 16px !important;}
+    .filter-bar .result-count{order:3;flex-basis:100%;}
+
+    .hdr-icons{gap:12px !important;font-size:12px !important;}
+    .hdr-logo{height:34px !important;width:auto !important;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    [style*="animation:marquee"]{animation:none !important;}
   }
 </style>
 </helmet>
@@ -54,9 +106,9 @@
         <a href="Shop.dc.html" class="tap">Shirts</a><a href="Shop.dc.html" class="tap">Polos</a><a href="Shop.dc.html" class="tap">T-Shirts</a><a href="Shop.dc.html" class="tap">Denims</a><a href="Shop.dc.html" class="tap">Chinos</a>
       </span>
     </nav>
-    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes & Checks" style="height:48px;width:auto;"></a>
+    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes & Checks" class="hdr-logo" style="height:48px;width:auto;"></a>
     <div class="hdr-icons" style="display:flex;gap:20px;font-size:13px;align-items:center;">
-      <a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a><a href="#" class="tap">Cart ({{cartCount}})</a>
+      <span class="hdr-secondary" style="display:flex;gap:20px;"><a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a></span><a href="#" class="tap">Cart ({{cartCount}})</a>
     </div>
   </header>
 
@@ -74,20 +126,20 @@
   </div>
   </sc-if>
 
-  <div style="padding:36px 40px 0;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+  <div class="pad" style="padding:36px 40px 0;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;">
     <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;margin:0;">Shirts</h1>
-    <nav style="display:flex;gap:20px;font-size:13px;">
+    <nav class="cat-nav" style="display:flex;gap:20px;font-size:13px;">
       <a href="#" style="border-bottom:1px solid #0a0a0a;">Shirts</a><a href="#">Polos</a><a href="#">T-Shirts</a><a href="#">Denims</a><a href="#">Chinos</a><a href="#">Accessories</a>
     </nav>
   </div>
 
-  <div style="padding:22px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:oklch(45% 0.01 75);border-bottom:1px solid oklch(93% 0.004 75);margin-top:14px;">
+  <div class="pad filter-bar" style="padding:22px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:oklch(45% 0.01 75);border-bottom:1px solid oklch(93% 0.004 75);margin-top:14px;">
     <span>Filters +</span>
-    <span>Results: {{products.length}} of {{products.length}} products</span>
+    <span class="result-count">Results: {{products.length}} of {{products.length}} products</span>
     <span>Featured &#8964;</span>
   </div>
 
-  <section class="grid-4" style="padding:0 40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:oklch(93% 0.004 75);margin-top:1px;">
+  <section class="grid-prod" style="padding:0 40px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:oklch(93% 0.004 75);margin-top:1px;">
     <sc-for list="{{products}}" as="p" hint-placeholder-count="8">
       <a href="Product.dc.html" style="background:oklch(98% 0.004 75);display:block;">
         <div style="position:relative;aspect-ratio:3/4;">
@@ -110,12 +162,12 @@
     <button style="background:#0a0a0a;color:#fff;border:none;padding:13px 34px;font-size:13px;letter-spacing:0.02em;cursor:pointer;" style-hover="background:oklch(25% 0.01 75);">Load more</button>
   </div>
 
-  <section style="background:oklch(38% 0.004 75);color:#fff;padding:80px 20% 90px;text-align:center;">
+  <section class="pull-quote" style="background:oklch(38% 0.004 75);color:#fff;padding:80px 20% 90px;text-align:center;">
     <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;line-height:1.5;">&#8220;Every stitch begins with a fabric we trust — stripes and checks woven the way they were meant to be, cut for the way you actually move through your day.&#8221;</div>
     <div style="margin-top:22px;font-size:12px;letter-spacing:0.04em;opacity:0.8;">&mdash; Founder, Stripes &amp; Checks Inc.</div>
   </section>
 
-  <section class="grid-3 ar-auto" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));aspect-ratio:2.4/1;">
+  <section class="grid-3 ar-auto bleed" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));aspect-ratio:2.4/1;">
     <div class="tile-fixed" style="position:relative;height:100%;">
       <image-slot id="tile-accessories" shape="rect" src="./ph/Cuff2.jpg"></image-slot>
       <div style="position:absolute;left:24px;bottom:24px;color:#fff;">
@@ -154,7 +206,7 @@
     </div>
   </section>
 
-  <section class="grid-4 ar-auto" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));aspect-ratio:3.4/1;">
+  <section class="grid-4 ar-auto bleed" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));aspect-ratio:3.4/1;">
     <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="grid-1" shape="rect" src="./ph/0Y2A0369.jpg"></image-slot></div>
     <div style="background:#0a0a0a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:180px;">
       <div style="font-size:12px;">Get Inspired</div>

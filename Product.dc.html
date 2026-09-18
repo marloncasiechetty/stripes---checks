@@ -21,15 +21,55 @@
   .mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;align-items:center;gap:5px;flex-direction:column;}
   .tap{padding:12px 4px;display:inline-block;}
   .dark-input::placeholder{color:rgba(255,255,255,0.6);}
-  @media (max-width:860px){
+
+  /* ---------- Tablet: up to 1024px ---------- */
+  @media (max-width:1024px){
+    header{padding-left:28px !important;padding-right:28px !important;}
+    section:not(.bleed), footer, .pad{padding-left:40px !important;padding-right:40px !important;}
+
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:36px !important;}
+
+    /* 64px of side padding leaves the buy column under 320px on a tablet */
+    .pdp-info{padding:40px 40px 32px !important;}
+  }
+
+  /* ---------- Collapse nav to the drawer ---------- */
+  @media (max-width:900px){
     .desktop-nav{display:none !important;}
     .mobile-menu-btn{display:flex !important;}
-    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    /* Search / Log in / Wishlist already live in the drawer; keeping them in
+       the bar too overruns the header. Cart stays — it carries a count. */
+    .hdr-secondary{display:none !important;}
+    .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
+    .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
+
+    /* gallery over buy column: side by side, the buy column runs out of room */
     .grid-2split{grid-template-columns:minmax(0,1fr) !important;}
+    .pdp-info{position:static !important;padding:36px 40px 40px !important;}
+    /* size and fit choices are touch targets, not text */
+    .opt-row a, .opt-row button{min-height:44px;display:inline-flex !important;
+                                align-items:center;justify-content:center;}
+  }
+
+  /* ---------- Phone: up to 640px ---------- */
+  @media (max-width:640px){
+    header{padding-left:16px !important;padding-right:16px !important;}
+    section:not(.bleed), footer, .pad{padding-left:20px !important;padding-right:20px !important;}
+
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .footer-grid{grid-template-columns:minmax(0,1fr) !important;gap:32px !important;}
-    .pdp-info{position:static !important;padding:32px 24px !important;}
-    header, section, footer{padding-left:20px !important;padding-right:20px !important;}
-    .hdr-icons{gap:12px !important;font-size:11px !important;}
+
+    .ar-auto{aspect-ratio:auto !important;}
+    .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
+    .pdp-info{padding:28px 20px 36px !important;}
+
+    .hdr-icons{gap:12px !important;font-size:12px !important;}
+    .hdr-logo{height:34px !important;width:auto !important;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    [style*="animation:marquee"]{animation:none !important;}
   }
 </style>
 </helmet>
@@ -53,9 +93,9 @@
         <a href="Shop.dc.html" class="tap">Shirts</a><a href="Shop.dc.html" class="tap">Polos</a><a href="Shop.dc.html" class="tap">T-Shirts</a><a href="Shop.dc.html" class="tap">Denims</a><a href="Shop.dc.html" class="tap">Chinos</a>
       </span>
     </nav>
-    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" style="height: 57px; width: 73px"></a>
+    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" class="hdr-logo" style="height:57px;width:auto;"></a>
     <div class="hdr-icons" style="display:flex;gap:20px;font-size:13px;align-items:center;">
-      <a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a><a href="#" class="tap">Cart ({{cartCount}})</a>
+      <span class="hdr-secondary" style="display:flex;gap:20px;"><a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a></span><a href="#" class="tap">Cart ({{cartCount}})</a>
     </div>
   </header>
 
@@ -104,14 +144,14 @@
       </div>
 
       <div style="margin-top:26px;font-size:13px;">Size: <span style="font-weight:500;">{{size}}</span></div>
-      <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+      <div class="opt-row" style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
         <sc-for list="{{sizes}}" as="s" hint-placeholder-count="5">
           <a href="#" onclick="{{s.select}}" style="font-size:13px;padding-bottom:3px;border-bottom:2px solid {{s.borderColor}};">{{s.label}}</a>
         </sc-for>
       </div>
 
       <div style="margin-top:26px;font-size:13px;">Fit: <span style="font-weight:500;">{{fit}}</span></div>
-      <div style="display:flex;gap:10px;margin-top:10px;">
+      <div class="opt-row" style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
         <sc-for list="{{fits}}" as="f" hint-placeholder-count="2">
           <button onclick="{{f.select}}" style="padding:8px 18px;font-size:12px;border:1px solid {{f.border}};background:{{f.bg}};color:{{f.color}};cursor:pointer;">{{f.label}}</button>
         </sc-for>
