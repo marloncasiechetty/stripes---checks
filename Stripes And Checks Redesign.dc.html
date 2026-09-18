@@ -93,6 +93,8 @@
 
     .hdr-icons{gap:12px !important;font-size:12px !important;}
     .hdr-logo{height:34px !important;width:auto !important;}
+    /* the hero product card ran flush to the right edge */
+    .float-card{right:24px;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -153,7 +155,7 @@
       </div>
       <div class="tile-fixed" style="position:relative;height:100%;background:oklch(92% 0.01 75);">
         <image-slot id="banner-right" shape="rect" src="./ph/Cuff2.jpg"></image-slot>
-        <a href="Product.dc.html" style="position:absolute;left:24px;bottom:24px;background:#fff;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);">
+        <a href="Product.dc.html" class="float-card" style="position:absolute;left:24px;bottom:24px;background:#fff;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);">
           <div style="width:44px;height:56px;flex:none;"><image-slot id="banner-product-thumb" shape="rect" src="./ph/0Y2A0363.jpg"></image-slot></div>
           <div>
             <div style="font-size:13px;font-weight:500;">Deep Tone - Navy Blue Long Sleeve Button Down Shirt</div>
