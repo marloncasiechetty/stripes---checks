@@ -48,6 +48,11 @@
     .feature-split{aspect-ratio:auto !important;}
     .feature-split .tile-fixed{height:auto !important;aspect-ratio:4/5 !important;}
     .feature-info{padding:44px 40px !important;}
+
+    /* testimonials: lead over a two-up row, rather than a narrow side rail */
+    .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:52px !important;}
+    .tst-rest{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:40px !important;}
+    .tst-lead blockquote{font-size:27px !important;}
   }
 
   /* ---------- Collapse nav to the drawer ---------- */
@@ -85,6 +90,11 @@
     .feature-split .tile-fixed{aspect-ratio:4/5 !important;}
     .feature-info{padding:36px 20px !important;}
     .pdp-info{position:static !important;padding:32px 20px !important;}
+
+    .tst-grid{gap:40px !important;}
+    .tst-rest{grid-template-columns:minmax(0,1fr) !important;gap:34px !important;}
+    .tst-lead blockquote{font-size:23px !important;}
+    .tst-rest blockquote{font-size:17.5px !important;}
 
     /* five tiles never divide evenly into two columns — scroll them instead */
     .grid-5{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -326,24 +336,27 @@
     </div>
   </section>
 
-  <section style="padding:90px 60px;text-align:center;">
-    <div style="font-size:11px;letter-spacing:0.06em;color:oklch(45% 0.01 75);">What Customers Say</div>
-    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px;margin-top:36px;">
-      <div>
-        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">The fit is exactly what I look for &mdash; tailored without feeling stiff. My go-to for shirts now.</p>
-        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Dinesh P., Colombo</div>
+  <section style="padding:100px 60px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.2;margin:0 0 48px;">What customers say</div>
+
+    <div class="tst-grid" style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:72px;align-items:start;">
+
+      <figure class="tst-lead" style="margin:0;">
+        <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1.42;max-width:19em;">The fit is exactly what I look for &mdash; tailored without feeling stiff. My go-to for shirts now.</blockquote>
+        <figcaption style="margin-top:26px;font-size:13px;line-height:1.7;">Dinesh P.<span style="display:block;color:oklch(48% 0.01 75);">Colombo</span></figcaption>
+      </figure>
+
+      <div class="tst-rest" style="display:grid;gap:44px;">
+        <figure style="margin:0;">
+          <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.55;max-width:26em;">Fabric quality is a step above what I&#8217;ve bought elsewhere. Alterations in-store made it fit perfectly.</blockquote>
+          <figcaption style="margin-top:16px;font-size:13px;line-height:1.7;">Amaya S.<span style="display:block;color:oklch(48% 0.01 75);">Kandy</span></figcaption>
+        </figure>
+        <figure style="margin:0;">
+          <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.55;max-width:26em;">Ordered three shirts and every one held up after months of regular wear. Worth the price.</blockquote>
+          <figcaption style="margin-top:16px;font-size:13px;line-height:1.7;">Ruwan F.<span style="display:block;color:oklch(48% 0.01 75);">Galle</span></figcaption>
+        </figure>
       </div>
-      <div>
-        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">Fabric quality is a step above what I&#8217;ve bought elsewhere. Alterations in-store made it fit perfectly.</p>
-        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Amaya S., Kandy</div>
-      </div>
-      <div>
-        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">Ordered three shirts and every one held up after months of regular wear. Worth the price.</p>
-        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Ruwan F., Galle</div>
-      </div>
+
     </div>
   </section>
 
