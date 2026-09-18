@@ -34,7 +34,8 @@
 
     .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .grid-4.ar-auto{aspect-ratio:auto !important;}
-    .grid-4.ar-auto .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
+    /* every cell, not just the image tiles — one odd ratio leaves a gap */
+    .grid-4.ar-auto > *{height:auto !important;aspect-ratio:1/1 !important;}
 
     .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:36px !important;}
     .pull-quote > div{max-width:720px;margin-left:auto;margin-right:auto;}
@@ -75,7 +76,7 @@
     .ar-auto{aspect-ratio:auto !important;}
     .col-auto{height:auto !important;}
     .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
-    .grid-4.ar-auto .tile-fixed{aspect-ratio:1/1 !important;}
+    .grid-4.ar-auto > *{aspect-ratio:1/1 !important;}
     .pull-quote{padding-top:56px !important;padding-bottom:64px !important;}
 
     /* the results line is too long to sit beside the other two */

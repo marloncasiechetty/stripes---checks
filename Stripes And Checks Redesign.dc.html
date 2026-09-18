@@ -36,7 +36,8 @@
        or each cell keeps the full-width ratio across two rows */
     .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
     .grid-4.ar-auto{aspect-ratio:auto !important;}
-    .grid-4.ar-auto .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
+    /* every cell, not just the image tiles — one odd ratio leaves a gap */
+    .grid-4.ar-auto > *{height:auto !important;aspect-ratio:1/1 !important;}
 
     .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:36px !important;}
 
@@ -79,7 +80,7 @@
     .ar-auto{aspect-ratio:auto !important;}
     .col-auto{height:auto !important;}
     .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
-    .grid-4.ar-auto .tile-fixed{aspect-ratio:1/1 !important;}
+    .grid-4.ar-auto > *{aspect-ratio:1/1 !important;}
     .hero-split{aspect-ratio:auto !important;}
     .feature-split .tile-fixed{aspect-ratio:4/5 !important;}
     .feature-info{padding:36px 20px !important;}
