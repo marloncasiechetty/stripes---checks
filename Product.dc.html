@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body{margin:0;background:oklch(98% 0.004 75);}
+  * { box-sizing: border-box; }
+  @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: oklch(45% 0.03 70); }
+  .desktop-nav{display:flex;}
+  .mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;align-items:center;gap:5px;flex-direction:column;}
+  .tap{padding:12px 4px;display:inline-block;}
+  .dark-input::placeholder{color:rgba(255,255,255,0.6);}
+  @media (max-width:860px){
+    .desktop-nav{display:none !important;}
+    .mobile-menu-btn{display:flex !important;}
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-2split{grid-template-columns:minmax(0,1fr) !important;}
+    .footer-grid{grid-template-columns:minmax(0,1fr) !important;gap:32px !important;}
+    .pdp-info{position:static !important;padding:32px 24px !important;}
+    header, section, footer{padding-left:20px !important;padding-right:20px !important;}
+    .hdr-icons{gap:12px !important;font-size:11px !important;}
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Inter',sans-serif;color:oklch(15% 0.004 75);background:oklch(98% 0.004 75);">
+
+  <div style="background:#0a0a0a;color:#fff;overflow:hidden;white-space:nowrap;padding:9px 0;font-size:12px;letter-spacing:0.04em;">
+    <div style="display:inline-block;animation:marquee 28s linear infinite;">
+      <span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span>
+    </div>
+  </div>
+
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#fff;border-bottom:1px solid oklch(93% 0.004 75);">
+    <nav style="display:flex;align-items:center;gap:24px;font-size:13px;letter-spacing:0.02em;">
+      <button class="mobile-menu-btn" onclick="{{openMenu}}" aria-label="Open menu">
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+      </button>
+      <span class="desktop-nav" style="display:flex;gap:24px;">
+        <a href="Shop.dc.html" class="tap">Shirts</a><a href="Shop.dc.html" class="tap">Polos</a><a href="Shop.dc.html" class="tap">T-Shirts</a><a href="Shop.dc.html" class="tap">Denims</a><a href="Shop.dc.html" class="tap">Chinos</a>
+      </span>
+    </nav>
+    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" style="height: 57px; width: 73px"></a>
+    <div class="hdr-icons" style="display:flex;gap:20px;font-size:13px;align-items:center;">
+      <a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a><a href="#" class="tap">Cart ({{cartCount}})</a>
+    </div>
+  </header>
+
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+  <div style="position:fixed;inset:0;background:#fff;z-index:50;padding:24px;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+      <img src="./logo.png" alt="Stripes &amp; Checks" style="height:30px;width:auto;">
+      <button onclick="{{closeMenu}}" style="background:none;border:none;font-size:26px;cursor:pointer;padding:8px;" aria-label="Close menu">×</button>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:22px;font-size:17px;">
+      <a href="Shop.dc.html">Shirts</a><a href="Shop.dc.html">Polos</a><a href="Shop.dc.html">T-Shirts</a><a href="Shop.dc.html">Denims</a><a href="Shop.dc.html">Chinos</a>
+      <div style="border-top:1px solid oklch(90% 0.004 75);margin:10px 0;"></div>
+      <a href="#">Search</a><a href="#">Log in</a><a href="#">Wishlist</a><a href="#">Cart ({{cartCount}})</a>
+    </nav>
+  </div>
+  </sc-if>
+
+  <div class="grid-2split" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start;">
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <sc-for list="{{gallery}}" as="g" hint-placeholder-count="3">
+        <div style="position:relative;aspect-ratio:4/5;">
+          <image-slot id="pdp-{{$index}}" shape="rect" src="{{g.src}}" placeholder="{{g.placeholder}}"></image-slot>
+        </div>
+      </sc-for>
+    </div>
+
+    <div class="pdp-info" style="padding:64px 64px 40px;position:sticky;top:0;">
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;line-height:1.15;margin:0 0 10px;">{{product.name}}</h1>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">★★★★★</div>
+        <span style="font-size:11px;color:oklch(55% 0.01 75);">(No reviews yet)</span>
+      </div>
+      <div style="font-size:15px;margin-top:14px;">{{product.price}}</div>
+      <div style="font-size:11px;color:oklch(50% 0.01 75);margin-top:4px;">Taxes included</div>
+      <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:14px;">{{product.attrs}}</div>
+      <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:5px;">Vendor: Stripes &amp; Checks &nbsp;·&nbsp; Availability: In stock</div>
+
+      <div style="font-size:14px;line-height:1.6;color:oklch(30% 0.006 75);margin-top:22px;max-width:420px;">
+        {{product.description}}
+        <a href="#" style="text-decoration:underline;display:block;margin-top:4px;font-size:13px;">Read more +</a>
+      </div>
+
+      <div style="font-size:12px;color:oklch(45% 0.03 40);margin-top:22px;">Only {{stockLeft}} left in stock</div>
+      <div style="height:2px;background:oklch(90% 0.004 75);margin-top:8px;max-width:420px;">
+        <div style="height:100%;width:{{stockPct}};background:#0a0a0a;"></div>
+      </div>
+
+      <div style="margin-top:26px;font-size:13px;">Size: <span style="font-weight:500;">{{size}}</span></div>
+      <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+        <sc-for list="{{sizes}}" as="s" hint-placeholder-count="5">
+          <a href="#" onclick="{{s.select}}" style="font-size:13px;padding-bottom:3px;border-bottom:2px solid {{s.borderColor}};">{{s.label}}</a>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:26px;font-size:13px;">Fit: <span style="font-weight:500;">{{fit}}</span></div>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <sc-for list="{{fits}}" as="f" hint-placeholder-count="2">
+          <button onclick="{{f.select}}" style="padding:8px 18px;font-size:12px;border:1px solid {{f.border}};background:{{f.bg}};color:{{f.color}};cursor:pointer;">{{f.label}}</button>
+        </sc-for>
+      </div>
+
+      <div style="font-size:13px;margin-top:26px;">Quantity</div>
+      <div style="display:flex;align-items:center;margin-top:10px;border:1px solid oklch(85% 0.004 75);width:fit-content;">
+        <button onclick="{{decQty}}" aria-label="Decrease quantity" style="width:38px;height:38px;border:none;background:none;font-size:16px;cursor:pointer;">−</button>
+        <div style="width:44px;text-align:center;font-size:13px;">{{qty}}</div>
+        <button onclick="{{incQty}}" aria-label="Increase quantity" style="width:38px;height:38px;border:none;background:none;font-size:16px;cursor:pointer;">+</button>
+      </div>
+      <div style="margin-top:14px;font-size:13px;">Subtotal: <span style="font-weight:500;">{{subtotal}}</span></div>
+
+      <div style="display:flex;gap:10px;margin-top:24px;max-width:420px;">
+        <button onclick="{{addToCart}}" style="flex:1;background:#0a0a0a;color:#fff;border:none;padding:16px;font-size:13px;letter-spacing:0.03em;cursor:pointer;" style-hover="background:oklch(25% 0.01 75);">{{addToCartLabel}}</button>
+        <button onclick="{{toggleWishlist}}" aria-label="Add to wishlist" style="width:52px;flex:none;border:1px solid oklch(85% 0.004 75);background:{{wishlistBg}};cursor:pointer;font-size:15px;">{{wishlistIcon}}</button>
+      </div>
+      <button style="margin-top:10px;width:100%;max-width:420px;background:none;border:1px solid #0a0a0a;padding:15px;font-size:13px;letter-spacing:0.03em;cursor:pointer;" style-hover="background:oklch(96% 0.004 75);">Buy It Now</button>
+
+      <div style="margin-top:34px;max-width:420px;">
+        <div onclick="{{toggleDetails}}" style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-top:1px solid oklch(90% 0.004 75);font-size:13px;cursor:pointer;">Details<span>{{detailsIcon}}</span></div>
+        <sc-if value="{{detailsOpen}}" hint-placeholder-val="{{false}}">
+        <p style="font-size:13px;line-height:1.7;color:oklch(35% 0.006 75);padding-bottom:16px;margin:0;">100% cotton, machine wash cold, hang dry. Mother-of-pearl buttons, single-needle stitching throughout.</p>
+        </sc-if>
+        <div onclick="{{toggleShipping}}" style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-top:1px solid oklch(90% 0.004 75);border-bottom:1px solid oklch(90% 0.004 75);font-size:13px;cursor:pointer;">Shipping<span>{{shippingIcon}}</span></div>
+        <sc-if value="{{shippingOpen}}" hint-placeholder-val="{{false}}">
+        <p style="font-size:13px;line-height:1.7;color:oklch(35% 0.006 75);padding:16px 0 0;margin:0;">Complimentary island-wide shipping. Delivered in 3–5 business days, with free returns within 14 days.</p>
+        </sc-if>
+      </div>
+
+      <p style="font-size:11px;line-height:1.6;color:oklch(55% 0.01 75);margin-top:20px;max-width:420px;">Free shipping on orders over LKR 5,000. Product colour may vary slightly from images due to lighting.</p>
+    </div>
+  </div>
+
+  <section style="padding:80px 40px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:24px;text-align:center;margin-bottom:32px;">You May Also Like</div>
+    <div class="grid-4" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;">
+      <sc-for list="{{related}}" as="p" hint-placeholder-count="4">
+        <a href="Product.dc.html" style="display:block;">
+          <div style="position:relative;aspect-ratio:3/4;">
+            <image-slot id="rel-{{$index}}" shape="rect" src="{{p.img}}"></image-slot>
+          </div>
+          <div style="padding:12px 4px;">
+            <div style="font-size:13px;">{{p.name}}</div>
+            <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:4px;">{{p.price}}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="background:#0a0a0a;color:oklch(80% 0.004 75);padding:64px 40px 30px;">
+    <div class="footer-grid" style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1.6fr;gap:40px;">
+      <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;letter-spacing:0.12em;color:#fff;">STRIPES<br>&amp; CHECKS</div>
+      <div>
+        <div style="color:#fff;font-size:13px;margin-bottom:14px;">Shop</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <a href="Shop.dc.html">Shirts</a><a href="Shop.dc.html">Polos</a><a href="Shop.dc.html">T-Shirts</a><a href="Shop.dc.html">Denims</a><a href="Shop.dc.html">Accessories</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#fff;font-size:13px;margin-bottom:14px;">Customer Care</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+          <a href="#">Contact</a><a href="#">FAQs</a><a href="#">About</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#fff;font-size:13px;margin-bottom:14px;">Subscribe to our newsletter</div>
+        <div style="font-size:12px;margin-bottom:14px;line-height:1.5;">Sign up for the latest collections, offers and behind-the-scenes glimpses.</div>
+        <div style="display:flex;border-bottom:1px solid oklch(40% 0.004 75);padding-bottom:10px;margin-bottom:14px;">
+          <input placeholder="Email" class="dark-input" style="background:transparent;border:none;color:#fff;font-size:13px;outline:none;flex:1;">
+          <button style="background:#fff;color:#0a0a0a;border:none;padding:6px 16px;font-size:12px;cursor:pointer;" style-hover="background:oklch(90% 0.004 75);">Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:oklch(50% 0.004 75);margin-top:40px;padding-top:20px;border-top:1px solid oklch(25% 0.004 75);">© 2026 Stripes &amp; Checks Inc.</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { size: 'M', fit: 'Slim', qty: 1, wishlisted: false, menuOpen: false, cartCount: 0, addToCartLabel: 'Add to cart', detailsOpen: false, shippingOpen: false };
+  componentDidMount() {
+    this.setState({ cartCount: parseInt(localStorage.getItem('sc_cart_count') || '0', 10) });
+  }
+  addToCart() {
+    const n = parseInt(localStorage.getItem('sc_cart_count') || '0', 10) + 1;
+    localStorage.setItem('sc_cart_count', String(n));
+    clearTimeout(this._cartTimer);
+    this.setState({ cartCount: n, addToCartLabel: 'Added ✓' });
+    this._cartTimer = setTimeout(() => this.setState({ addToCartLabel: 'Add to cart' }), 1400);
+  }
+  renderVals() {
+    const marqueeText = 'Free Alterations In-Store — Complimentary Tailoring On All Orders';
+    const product = {
+      name: 'Deep Tone - Navy Blue Long Sleeve Button Down Shirt',
+      price: 'LKR 8,000.00',
+      priceValue: 8000,
+      attrs: 'Color: Navy Blue  |  Collar: Button Down  |  Sleeve Length: Long',
+      description: 'Woven from breathable Oxford cotton with a tailored fit through the body, this shirt is finished with mother-of-pearl buttons and a soft, structured collar built to hold its shape all day.',
+    };
+    const gallery = [
+      { src: './ph/23_1.jpg', placeholder: 'Front view' },
+      { src: '', placeholder: 'Back view' },
+      { src: '', placeholder: 'Detail / fabric close-up' },
+    ];
+    const sizes = ['S', 'M', 'L', 'XL', 'XXL'].map(lbl => ({
+      label: lbl,
+      borderColor: lbl === this.state.size ? '#0a0a0a' : 'transparent',
+      select: (e) => { if (e) e.preventDefault(); this.setState({ size: lbl }); },
+    }));
+    const related = [
+      { img: './ph/IRE_2910.jpg', name: 'Blush Micro-Print Shirt', price: 'LKR 6,200.00' },
+      { img: './ph/IRE_2918.jpg', name: 'Navy Crane-Print Shirt', price: 'LKR 6,400.00' },
+      { img: './ph/SC_1268.jpg', name: 'Sage Green Polo', price: 'LKR 4,400.00' },
+      { img: './ph/front4.jpg', name: 'Olive Textured Shirt', price: 'LKR 5,800.00' },
+    ];
+    const fits = ['Slim', 'Regular'].map(lbl => ({
+      label: lbl,
+      border: lbl === this.state.fit ? '#0a0a0a' : 'oklch(85% 0.004 75)',
+      bg: lbl === this.state.fit ? '#0a0a0a' : 'transparent',
+      color: lbl === this.state.fit ? '#fff' : '#0a0a0a',
+      select: () => this.setState({ fit: lbl }),
+    }));
+    const stockLeft = 10;
+    const subtotal = 'LKR ' + (product.priceValue * this.state.qty).toLocaleString('en-US', { minimumFractionDigits: 2 });
+    return {
+      marqueeText, product, gallery, size: this.state.size, sizes, related,
+      fit: this.state.fit, fits,
+      qty: this.state.qty,
+      incQty: () => this.setState(s => ({ qty: s.qty + 1 })),
+      decQty: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
+      subtotal, stockLeft, stockPct: Math.round((stockLeft / 20) * 100) + '%',
+      wishlisted: this.state.wishlisted,
+      wishlistIcon: this.state.wishlisted ? '\u2665' : '\u2661',
+      wishlistBg: this.state.wishlisted ? 'oklch(96% 0.01 20)' : 'transparent',
+      toggleWishlist: () => this.setState(s => ({ wishlisted: !s.wishlisted })),
+      cartCount: this.state.cartCount, addToCartLabel: this.state.addToCartLabel,
+      addToCart: () => this.addToCart(),
+      detailsOpen: this.state.detailsOpen, shippingOpen: this.state.shippingOpen,
+      detailsIcon: this.state.detailsOpen ? '\u2212' : '+', shippingIcon: this.state.shippingOpen ? '\u2212' : '+',
+      toggleDetails: () => this.setState(s => ({ detailsOpen: !s.detailsOpen })),
+      toggleShipping: () => this.setState(s => ({ shippingOpen: !s.shippingOpen })),
+      menuOpen: this.state.menuOpen,
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

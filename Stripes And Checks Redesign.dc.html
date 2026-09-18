@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body{margin:0;background:oklch(98% 0.004 75);}
+  * { box-sizing: border-box; }
+  @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: oklch(45% 0.03 70); }
+  .desktop-nav{display:flex;}
+  .mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;align-items:center;gap:5px;flex-direction:column;}
+  .tap{padding:12px 4px;display:inline-block;}
+  .dark-input::placeholder{color:rgba(255,255,255,0.6);}
+  @media (max-width:860px){
+    .desktop-nav{display:none !important;}
+    .mobile-menu-btn{display:flex !important;}
+    .grid-6{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-5{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-4{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .grid-3{grid-template-columns:minmax(0,1fr) !important;}
+    .grid-2split{grid-template-columns:minmax(0,1fr) !important;}
+    .footer-grid{grid-template-columns:minmax(0,1fr) !important;gap:32px !important;}
+    .ar-auto{aspect-ratio:auto !important;}
+    .col-auto{height:auto !important;}
+    .tile-fixed{height:auto !important;aspect-ratio:4/3 !important;}
+    .feature-info{padding:40px 24px !important;}
+    .pdp-info{position:static !important;padding:32px 24px !important;}
+    header, section, footer{padding-left:20px !important;padding-right:20px !important;}
+    .hdr-icons{gap:12px !important;font-size:11px !important;}
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Inter',sans-serif;color:oklch(15% 0.004 75);background:oklch(98% 0.004 75);overflow:hidden;">
+
+  <sc-if value="{{showMarquee}}" hint-placeholder-val="{{true}}">
+  <div style="background:#0a0a0a;color:#fff;overflow:hidden;white-space:nowrap;padding:9px 0;font-size:12px;letter-spacing:0.04em;">
+    <div style="display:inline-block;animation:marquee 28s linear infinite;">
+      <span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span><span style="padding:0 28px;">{{marqueeText}}</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:#fff;border-bottom:1px solid oklch(93% 0.004 75);">
+    <nav style="display:flex;align-items:center;gap:24px;font-size:13px;letter-spacing:0.02em;">
+      <button class="mobile-menu-btn" onclick="{{openMenu}}" aria-label="Open menu">
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+        <span style="width:22px;height:2px;background:#0a0a0a;display:block;"></span>
+      </button>
+      <span class="desktop-nav" style="display:flex;gap:24px;">
+        <a href="Shop.dc.html" class="tap">Shirts</a><a href="Shop.dc.html" class="tap">Polos</a><a href="Shop.dc.html" class="tap">T-Shirts</a><a href="Shop.dc.html" class="tap">Denims</a><a href="Shop.dc.html" class="tap">Chinos</a>
+      </span>
+    </nav>
+    <a href="Stripes And Checks Redesign.dc.html"><img src="./logo.png" alt="Stripes &amp; Checks" style="height:48px;width:auto;"></a>
+    <div class="hdr-icons" style="display:flex;gap:20px;font-size:13px;align-items:center;">
+      <a href="#" class="tap">Search</a><a href="#" class="tap">Log in</a><a href="#" class="tap">Wishlist</a><a href="#" class="tap">Cart ({{cartCount}})</a>
+    </div>
+  </header>
+
+  <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+  <div style="position:fixed;inset:0;background:#fff;z-index:50;padding:24px;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+      <img src="./logo.png" alt="Stripes &amp; Checks" style="height:30px;width:auto;">
+      <button onclick="{{closeMenu}}" style="background:none;border:none;font-size:26px;cursor:pointer;padding:8px;" aria-label="Close menu">×</button>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:22px;font-size:17px;">
+      <a href="Shop.dc.html">Shirts</a><a href="Shop.dc.html">Polos</a><a href="Shop.dc.html">T-Shirts</a><a href="Shop.dc.html">Denims</a><a href="Shop.dc.html">Chinos</a>
+      <div style="border-top:1px solid oklch(90% 0.004 75);margin:10px 0;"></div>
+      <a href="#">Search</a><a href="#">Log in</a><a href="#">Wishlist</a><a href="#">Cart ({{cartCount}})</a>
+    </nav>
+  </div>
+  </sc-if>
+
+  <section style="position:relative;">
+    <div class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:6.4/1;">
+      <div class="tile-fixed" style="position:relative;height:100%;">
+        <image-slot id="banner-left" shape="rect" src="./ph/front-1.jpg"></image-slot>
+        <div style="position:absolute;bottom:24px;left:32px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#fff;">On Sale</div>
+          <a href="Shop.dc.html" style="display:inline-block;margin-top:10px;background:#0a0a0a;color:#fff;padding:10px 22px;font-size:12px;letter-spacing:0.05em;">Shop Now</a>
+        </div>
+      </div>
+      <div class="tile-fixed" style="position:relative;height:100%;background:oklch(92% 0.01 75);">
+        <image-slot id="banner-right" shape="rect" src="./ph/Cuff2.jpg"></image-slot>
+        <a href="Product.dc.html" style="position:absolute;left:24px;bottom:24px;background:#fff;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);">
+          <div style="width:44px;height:56px;flex:none;"><image-slot id="banner-product-thumb" shape="rect" src="./ph/0Y2A0363.jpg"></image-slot></div>
+          <div>
+            <div style="font-size:13px;font-weight:500;">Deep Tone - Navy Blue Long Sleeve Button Down Shirt</div>
+            <div style="font-size:12px;color:oklch(45% 0.01 75);">LKR 8,000.00</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 60px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:end;">
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:44px;">New Arrivals<sup style="font-size:16px;">(6)</sup></div>
+      <a href="Shop.dc.html" style="display:inline-block;margin-top:6px;font-size:13px;border-bottom:1px solid currentColor;">Shop All →</a>
+    </div>
+    <p style="font-size:14px;line-height:1.7;color:oklch(30% 0.004 75);margin:0;">
+      Deep tones and heavyweight cottons for the shift into cooler days. Charcoal linens and brushed flannels sit alongside sharp navy poplins, cut for a fit that moves between the desk and dinner without changing.
+    </p>
+  </section>
+
+  <section class="grid-6" style="padding:0 60px 100px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+    <sc-for list="{{newIn}}" as="p" hint-placeholder-count="6">
+      <a href="Product.dc.html" style="display:block;">
+        <div style="position:relative;aspect-ratio:3/4;background:oklch(94% 0.006 75);">
+          <image-slot id="newin-{{$index}}" shape="rect" src="{{p.img}}"></image-slot>
+          <div style="position:absolute;top:10px;left:10px;background:#0a0a0a;color:#fff;font-size:10px;letter-spacing:0.04em;padding:4px 8px;">{{p.badge}}</div>
+        </div>
+        <div style="margin-top:10px;font-size:13px;">{{p.name}}</div>
+        <div style="font-size:12px;color:oklch(45% 0.01 75);">{{p.price}}</div>
+      </a>
+    </sc-for>
+  </section>
+
+  <section class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);aspect-ratio:16/9;">
+    <div class="tile-fixed" style="position:relative;height:100%;">
+      <image-slot id="cat-shirts" shape="rect" src="./ph/0y2a0337.jpg"></image-slot>
+      <div style="position:absolute;left:24px;bottom:24px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;">Shirts</div>
+        <a href="Shop.dc.html" style="display:inline-block;margin-top:10px;background:#fff;color:#0a0a0a;padding:9px 20px;font-size:11px;letter-spacing:0.05em;">Shop Now</a>
+      </div>
+    </div>
+    <div class="col-auto" style="display:flex;flex-direction:column;height:100%;">
+      <div class="tile-fixed" style="position:relative;flex:1;min-height:0;">
+        <image-slot id="cat-polo" shape="rect" src="./ph/SC_1177.jpg"></image-slot>
+        <div style="position:absolute;left:24px;bottom:24px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;">Polo T-Shirts</div>
+          <a href="Shop.dc.html" style="display:inline-block;margin-top:8px;background:#0a0a0a;color:#fff;padding:8px 18px;font-size:11px;">Shop Now</a>
+        </div>
+      </div>
+      <div class="tile-fixed" style="position:relative;flex:1;min-height:0;">
+        <image-slot id="cat-denim" shape="rect" src="./ph/SC_1249.jpg"></image-slot>
+        <div style="position:absolute;left:24px;bottom:24px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;">Premium Denims</div>
+          <a href="Shop.dc.html" style="display:inline-block;margin-top:8px;background:#fff;color:#0a0a0a;padding:8px 18px;font-size:11px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:#0a0a0a;padding:16px 0;overflow:hidden;white-space:nowrap;">
+    <div style="display:inline-block;animation:marquee 22s linear infinite;">
+      <span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span><span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span><span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span><span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span><span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span><span style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;padding:0 26px;">STRIPES &amp; CHECKS</span><span style="color:oklch(70% 0.02 75);padding:0 26px;">◆</span>
+    </div>
+  </div>
+
+  <section class="grid-2split ar-auto" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);aspect-ratio:8/5;">
+    <div class="tile-fixed" style="position:relative;height:100%;">
+      <image-slot id="pdp-shirt" shape="rect" src="./ph/IRE_2745.jpg"></image-slot>
+    </div>
+    <div class="feature-info" style="display:flex;flex-direction:column;justify-content:center;padding:60px;gap:14px;">
+      <div style="font-size:11px;letter-spacing:0.06em;color:oklch(45% 0.01 75);">NEW</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:40px;line-height:1.1;">White Textured<br>Two-Fold Shirt</div>
+      <div style="font-size:16px;">LKR 7,600.00</div>
+      <p style="font-size:13px;line-height:1.7;color:oklch(35% 0.004 75);max-width:380px;margin:6px 0 0;">Slim-fit shirt in breathable two-fold cotton with a subtle self-texture. Cut for a tailored silhouette that layers cleanly under a blazer.</p>
+      <div style="margin-top:10px;font-size:13px;">Color: {{featColorName}}</div>
+      <div style="display:flex;gap:8px;">
+        <sc-for list="{{featColors}}" as="c" hint-placeholder-count="2">
+          <button onclick="{{c.select}}" aria-label="{{c.name}}" style="width:28px;height:28px;background:{{c.swatch}};border:2px solid {{c.borderColor}};cursor:pointer;padding:0;"></button>
+        </sc-for>
+      </div>
+      <div style="margin-top:10px;font-size:13px;">Size: {{featSize}}</div>
+      <div style="display:flex;gap:14px;font-size:13px;">
+        <sc-for list="{{featSizes}}" as="s" hint-placeholder-count="5">
+          <a href="#" onclick="{{s.select}}" style="text-decoration:{{s.deco}};">{{s.label}}</a>
+        </sc-for>
+      </div>
+      <button onclick="{{addToCart}}" style="margin-top:18px;background:#0a0a0a;color:#fff;text-align:center;padding:15px;font-size:13px;letter-spacing:0.04em;border:none;width:100%;cursor:pointer;" style-hover="background:oklch(25% 0.01 75);">{{addToCartLabel}}</button>
+    </div>
+  </section>
+
+  <section style="background:#0a0a0a;padding:56px 0 0;">
+    <div style="text-align:center;color:#fff;font-size:11px;letter-spacing:0.06em;">Behind The Scenes</div>
+    <div style="text-align:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:34px;margin-top:6px;">Style Diaries</div>
+    <div class="grid-5 ar-auto" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;margin-top:36px;aspect-ratio:4/1;">
+      <sc-for list="{{insta}}" as="ig" hint-placeholder-count="5">
+        <div class="tile-fixed" style="position:relative;height:100%;">
+          <image-slot id="ig-{{$index}}" shape="rect" src="{{ig.img}}"></image-slot>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:96px 60px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:60px;">
+    <div style="font-size:13px;color:oklch(45% 0.01 75);">Tailored For The Season</div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;line-height:1.4;">
+        In every fold of cloth and turn of collar, there's a quiet discipline. This season, Stripes &amp; Checks looks at the men who dress with intention — not for occasion, but for the everyday.
+      </div>
+      <a href="#" style="display:inline-block;margin-top:20px;font-size:13px;border-bottom:1px solid currentColor;">Read the Story →</a>
+    </div>
+  </section>
+
+  <section class="grid-4 ar-auto" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:0 60px 100px;aspect-ratio:3/1;">
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="ed-1" shape="rect" src="./ph/0Y2A0369.jpg"></image-slot></div>
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="ed-2" shape="rect" src="./ph/0y2a0343.jpg"></image-slot></div>
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="ed-3" shape="rect" src="./ph/24_1.jpg"></image-slot></div>
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="ed-4" shape="rect" src="./ph/Cuff4.jpg"></image-slot></div>
+  </section>
+
+  <section style="background:#0a0a0a;color:#fff;text-align:center;padding:90px 24px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:38px;">Newsletter</div>
+    <p style="font-size:13px;color:oklch(80% 0.005 75);max-width:420px;margin:14px auto 0;">Sign up for first access to new arrivals, seasonal drops, and private in-store fitting slots.</p>
+    <div style="max-width:360px;margin:26px auto 0;">
+      <input placeholder="Email" class="dark-input" style="width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.4);color:#fff;padding:10px 0;font-size:13px;">
+      <a href="#" style="display:block;margin-top:16px;background:#fff;color:#0a0a0a;padding:13px;font-size:13px;" style-hover="background:oklch(90% 0.004 75);">Subscribe</a>
+    </div>
+  </section>
+
+  <section style="padding:80px 60px 40px;">
+    <div style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:32px;">Stripes &amp; Checks Services</div>
+    <div class="grid-3 ar-auto" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:40px;aspect-ratio:4.8/1;">
+      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-1" shape="rect" src="./ph/svc-1.jpg"></image-slot></div>
+      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-2" shape="rect" src="./ph/svc-2.jpg"></image-slot></div>
+      <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="svc-3" shape="rect" src="./ph/svc-3.jpg"></image-slot></div>
+    </div>
+    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;text-align:center;margin-top:24px;">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Complimentary Gift Wrapping</div>
+        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Every order is wrapped with care, with a hand-written note on request.</p>
+        <a href="Shop.dc.html" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Book a Fitting Appointment</div>
+        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Get a personal fitting and styling session at the store nearest you.</p>
+        <a href="#" style="font-size:12px;border-bottom:1px solid currentColor;">Book an Appointment →</a>
+      </div>
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;">Personalize Your Shirt</div>
+        <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:8px;">Add monogrammed initials to cuffs or collar for a one-of-a-kind piece.</p>
+        <a href="Shop.dc.html" style="font-size:12px;border-bottom:1px solid currentColor;">Shop Now →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-3" style="background:oklch(95% 0.006 75);padding:50px 60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;text-align:center;">
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Free Shipping &amp; Returns</div>
+      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Complimentary island-wide shipping and returns on all orders.</p>
+    </div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Premium Fabric Sourcing</div>
+      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Cotton and linen sourced from mills we've worked with for decades.</p>
+    </div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:19px;">Customer Love</div>
+      <p style="font-size:13px;color:oklch(40% 0.005 75);margin-top:6px;">Rated 4.8/5 by over 3,000 customers across our stores.</p>
+    </div>
+  </section>
+
+  <section style="padding:90px 60px;text-align:center;">
+    <div style="font-size:11px;letter-spacing:0.06em;color:oklch(45% 0.01 75);">What Customers Say</div>
+    <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px;margin-top:36px;">
+      <div>
+        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">The fit is exactly what I look for &mdash; tailored without feeling stiff. My go-to for shirts now.</p>
+        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Dinesh P., Colombo</div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">Fabric quality is a step above what I&#8217;ve bought elsewhere. Alterations in-store made it fit perfectly.</p>
+        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Amaya S., Kandy</div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:0.08em;color:oklch(75% 0.03 75);">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 0;">Ordered three shirts and every one held up after months of regular wear. Worth the price.</p>
+        <div style="font-size:12px;color:oklch(45% 0.01 75);margin-top:16px;">Ruwan F., Galle</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-4 ar-auto" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));aspect-ratio:3/1;">
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="insta-1" shape="rect" src="./ph/insta-1.jpg"></image-slot></div>
+    <div style="background:#0a0a0a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:180px;">
+      <div style="font-size:12px;">Get Inspired</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;">#STRIPESANDCHECKS</div>
+      <a href="#" style="font-size:12px;border-bottom:1px solid #fff;">Follow Us →</a>
+    </div>
+    <div class="tile-fixed" style="position:relative;height:100%;"><image-slot id="insta-2" shape="rect" src="./ph/insta-2.jpg"></image-slot></div>
+    <div style="position:relative;aspect-ratio:3/4;"><image-slot id="insta-3" shape="rect" src="./ph/insta-3.jpg"></image-slot></div>
+  </section>
+
+  <footer class="footer-grid" style="background:#0a0a0a;color:#fff;padding:70px 60px 30px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1.4fr;gap:40px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0.1em;">STRIPES<br>&amp; CHECKS</div>
+    <div>
+      <div style="font-size:14px;margin-bottom:14px;">Shop</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
+        <a href="Shop.dc.html">Shirts</a><a href="Shop.dc.html">Polo T-Shirts</a><a href="Shop.dc.html">Denims</a><a href="Shop.dc.html">Chinos</a><a href="Shop.dc.html">Accessories</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:14px;margin-bottom:14px;">Customer Care</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:oklch(75% 0.005 75);">
+        <a href="#">Contact</a><a href="#">FAQs</a><a href="#">About</a><a href="#">Refund Policy</a><a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:14px;margin-bottom:10px;">Subscribe to our newsletter</div>
+      <p style="font-size:12px;color:oklch(65% 0.005 75);margin:0 0 14px;">First access to new arrivals and seasonal drops.</p>
+      <input placeholder="Email" class="dark-input" style="width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.4);color:#fff;padding:8px 0;font-size:13px;">
+      <a href="#" style="display:block;margin-top:12px;background:#fff;color:#0a0a0a;text-align:center;padding:11px;font-size:13px;" style-hover="background:oklch(90% 0.004 75);">Subscribe</a>
+      <div style="display:flex;gap:14px;margin-top:20px;font-size:13px;color:oklch(75% 0.005 75);">
+        <a href="#">FB</a><a href="#">IG</a><a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+  <div style="background:#0a0a0a;color:oklch(55% 0.005 75);font-size:11px;text-align:center;padding:14px;border-top:1px solid rgba(255,255,255,0.08);">
+    © 2026 Stripes &amp; Checks. All rights reserved.
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600},&quot;showMarquee&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;announcementText&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Free Alterations In-Store — Complimentary Tailoring On All Orders&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, featColor: 0, featSize: 'M', cartCount: 0, addToCartLabel: 'Add to Cart' };
+  componentDidMount() {
+    this.setState({ cartCount: parseInt(localStorage.getItem('sc_cart_count') || '0', 10) });
+  }
+  addToCart() {
+    const n = parseInt(localStorage.getItem('sc_cart_count') || '0', 10) + 1;
+    localStorage.setItem('sc_cart_count', String(n));
+    clearTimeout(this._cartTimer);
+    this.setState({ cartCount: n, addToCartLabel: 'Added ✓' });
+    this._cartTimer = setTimeout(() => this.setState({ addToCartLabel: 'Add to Cart' }), 1400);
+  }
+  renderVals() {
+    const marqueeText = this.props.announcementText || 'Free Alterations In-Store — Complimentary Tailoring On All Orders';
+    const showMarquee = this.props.showMarquee ?? true;
+    const featColorDefs = [
+      { name: 'White', swatch: '#f2f0ea' },
+      { name: 'Slate Blue', swatch: '#7a8a96' },
+    ];
+    const featColors = featColorDefs.map((c, i) => ({
+      ...c,
+      borderColor: i === this.state.featColor ? '#0a0a0a' : '#ddd',
+      select: () => this.setState({ featColor: i }),
+    }));
+    const featSizes = ['S', 'M', 'L', 'XL', 'XXL'].map(lbl => ({
+      label: lbl,
+      deco: lbl === this.state.featSize ? 'underline' : 'none',
+      select: (e) => { if (e) e.preventDefault(); this.setState({ featSize: lbl }); },
+    }));
+    const newIn = [
+      { img: './ph/23_1.jpg', badge: 'New', name: 'Sky Blue Oxford Shirt', price: 'LKR 5,900.00' },
+      { img: './ph/IRE_2910.jpg', badge: 'New', name: 'Blush Micro-Print Shirt', price: 'LKR 6,200.00' },
+      { img: './ph/IRE_2918.jpg', badge: 'New', name: 'Navy Crane-Print Shirt', price: 'LKR 6,400.00' },
+      { img: './ph/SC_1268.jpg', badge: 'New', name: 'Sage Green Polo', price: 'LKR 4,400.00' },
+      { img: './ph/front.jpg', badge: 'New', name: 'Maroon Satin Shirt', price: 'LKR 5,500.00' },
+      { img: './ph/front4.jpg', badge: 'New', name: 'Olive Textured Shirt', price: 'LKR 5,800.00' },
+    ];
+    const insta = [
+      { img: './ph/insta1.jpg' },
+      { img: './ph/insta2.jpg' },
+      { img: './ph/insta3.jpg' },
+      { img: './ph/insta4.jpg' },
+      { img: './ph/insta5.jpg' },
+    ];
+    return {
+      marqueeText, showMarquee, newIn, insta,
+      featColors, featColorName: featColorDefs[this.state.featColor].name,
+      featSizes, featSize: this.state.featSize,
+      cartCount: this.state.cartCount, addToCartLabel: this.state.addToCartLabel,
+      addToCart: () => this.addToCart(),
+      menuOpen: this.state.menuOpen,
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
