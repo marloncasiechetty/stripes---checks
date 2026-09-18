@@ -49,6 +49,15 @@
     .feature-split .tile-fixed{height:auto !important;aspect-ratio:4/5 !important;}
     .feature-info{padding:44px 40px !important;}
 
+    /* five tiles divide evenly into nothing — swipe them at every size below
+       desktop, with the next tile always part-visible as the affordance */
+    .grid-5{display:flex !important;overflow-x:auto;-webkit-overflow-scrolling:touch;
+            scroll-snap-type:x proximity;gap:2px !important;aspect-ratio:auto !important;
+            scrollbar-width:none;-ms-overflow-style:none;}
+    .grid-5::-webkit-scrollbar{display:none;}
+    .grid-5 > *{flex:0 0 38% !important;scroll-snap-align:start;}
+    .grid-5 .tile-fixed{height:auto !important;aspect-ratio:1/1 !important;}
+
     /* testimonials: intro stacks above the quote */
     .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:44px !important;}
     .tst-stack blockquote{font-size:27px !important;}
@@ -93,11 +102,7 @@
     .tst-grid{gap:36px !important;}
     .tst-stack blockquote{font-size:22px !important;}
 
-    /* five tiles never divide evenly into two columns — scroll them instead */
-    .grid-5{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
-            gap:2px !important;aspect-ratio:auto !important;}
-    .grid-5 > *{flex:0 0 62% !important;scroll-snap-align:start;}
-    .grid-5 .tile-fixed{aspect-ratio:1/1 !important;}
+    .grid-5 > *{flex:0 0 68% !important;}
 
     .hdr-icons{gap:12px !important;font-size:12px !important;}
     .hdr-logo{height:34px !important;width:auto !important;}
