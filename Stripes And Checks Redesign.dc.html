@@ -51,7 +51,7 @@
 
     /* testimonials: intro stacks above the quote */
     .tst-grid{grid-template-columns:minmax(0,1fr) !important;gap:44px !important;}
-    .tst-quote blockquote{font-size:27px !important;min-height:3.9em !important;}
+    .tst-stack blockquote{font-size:27px !important;}
   }
 
   /* ---------- Collapse nav to the drawer ---------- */
@@ -91,7 +91,7 @@
     .pdp-info{position:static !important;padding:32px 20px !important;}
 
     .tst-grid{gap:36px !important;}
-    .tst-quote blockquote{font-size:22px !important;min-height:5.9em !important;}
+    .tst-stack blockquote{font-size:22px !important;}
 
     /* five tiles never divide evenly into two columns — scroll them instead */
     .grid-5{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;
@@ -343,7 +343,11 @@
       </div>
 
       <figure class="tst-quote" style="margin:0;">
-        <blockquote style="margin:0;font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.45;min-height:4.35em;">&ldquo;{{review.quote}}&rdquo;</blockquote>
+        <div class="tst-stack" style="display:grid;">
+          <sc-for list="{{reviewSlides}}" as="r" hint-placeholder-count="3">
+            <blockquote style="grid-area:1/1;margin:0;font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.45;visibility:{{r.vis}};">&ldquo;{{r.quote}}&rdquo;</blockquote>
+          </sc-for>
+        </div>
         <div style="border-top:1px solid oklch(88% 0.004 75);margin-top:30px;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
           <figcaption style="font-size:13px;line-height:1.7;">{{review.name}}<span style="display:block;color:oklch(48% 0.01 75);">{{review.city}}</span></figcaption>
           <div style="display:flex;gap:10px;flex:none;">
@@ -455,6 +459,7 @@ class Component extends DCLogic {
       featSizes, featSize: this.state.featSize,
       cartCount: this.state.cartCount, addToCartLabel: this.state.addToCartLabel,
       addToCart: () => this.addToCart(),
+      reviewSlides: reviews.map((r, i) => ({ ...r, vis: i === this.state.reviewIndex ? 'visible' : 'hidden' })),
       review: reviews[this.state.reviewIndex],
       reviewPrev: () => this.setState({ reviewIndex: (this.state.reviewIndex + reviews.length - 1) % reviews.length }),
       reviewNext: () => this.setState({ reviewIndex: (this.state.reviewIndex + 1) % reviews.length }),
