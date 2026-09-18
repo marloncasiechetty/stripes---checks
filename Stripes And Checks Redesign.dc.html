@@ -76,7 +76,7 @@
        the bar too overruns the header. Cart stays — it carries a count. */
     .hdr-secondary{display:none !important;}
     .svc-grid{grid-template-columns:minmax(0,1fr) !important;gap:36px !important;}
-    .svc-media{aspect-ratio:16/9 !important;}
+    .svc-media{height:auto !important;min-height:0 !important;aspect-ratio:16/9 !important;}
     .hdr-icons a{min-height:44px;display:inline-flex;align-items:center;}
     .cta{min-height:44px;display:inline-flex !important;align-items:center;justify-content:center;}
     .opt-row a, .opt-row button{min-height:44px;display:inline-flex !important;
@@ -109,7 +109,7 @@
     .svc-band{padding-top:56px !important;padding-bottom:60px !important;}
     .svc-title{font-size:28px !important;}
     .svc-name{font-size:21px !important;}
-    .svc-media{aspect-ratio:4/3 !important;}
+    .svc-media{height:auto !important;min-height:0 !important;aspect-ratio:4/3 !important;}
     .svc-row{flex-direction:column;align-items:flex-start !important;gap:14px !important;}
     .assure-grid{grid-template-columns:minmax(0,1fr) !important;gap:28px !important;}
 
@@ -312,9 +312,9 @@
   </section>
 
   <section class="svc-band" style="background:#0a0a0a;color:#fff;padding:96px 60px;">
-    <div class="svc-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:72px;align-items:start;">
+    <div class="svc-grid" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:72px;align-items:stretch;">
 
-      <div class="svc-media" style="position:relative;aspect-ratio:4/5;">
+      <div class="svc-media" style="position:relative;height:100%;min-height:440px;">
         <image-slot id="svc-detail" shape="rect" src="./ph/svc-3.jpg"></image-slot>
       </div>
 
